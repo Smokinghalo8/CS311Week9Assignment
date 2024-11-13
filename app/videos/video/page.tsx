@@ -28,7 +28,7 @@ const VideoPage = async ({ params }: VideoPageProps) => {
       <p>URL: {video.url}</p>
 
       {/* Link to edit */}
-      <Link href={`/videos/video/edit/${video.id}`}>Edit</Link>
+      <a href={`/videos/video/edit/${video.id}`}>Edit</a>
 
       {/* Delete form */}
       <form method="POST" action={`/videos/video/delete/${video.id}`}>
