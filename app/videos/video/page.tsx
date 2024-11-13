@@ -1,5 +1,3 @@
-// app/videos/video/page.tsx
-
 import { PrismaClient } from '@prisma/client'
 import { notFound } from 'next/navigation'
 
@@ -17,7 +15,7 @@ const VideoPage = async ({ params }: VideoPageProps) => {
   })
 
   if (!video) {
-    notFound() // Show a 404 page if the video doesn't exist
+    notFound() //error page if needed
   }
 
   return (
@@ -30,10 +28,7 @@ const VideoPage = async ({ params }: VideoPageProps) => {
       {/* Link to edit */}
       <a href={`/videos/video/edit/${video.id}`}>Edit</a>
 
-      {/* Delete form */}
-      <form method="POST" action={`/videos/video/delete/${video.id}`}>
-        <button type="submit">Delete Video</button>
-      </form>
+
     </div>
   )
 }

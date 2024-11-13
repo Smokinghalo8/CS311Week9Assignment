@@ -1,5 +1,3 @@
-// app/videos/video/add/page.tsx
-
 import { PrismaClient } from '@prisma/client'
 import { redirect } from 'next/navigation'
 
@@ -14,12 +12,12 @@ const AddVideoPage = () => {
     const votes = parseInt(formData.get('votes') as string, 10)
     const length = parseInt(formData.get('length') as string, 10)
 
-    // Add the video to the database
+    //Add the video to the database
     await prisma.video.create({
       data: { name, url, votes, length },
     })
 
-    // Redirect to videos list
+    //Redirect to videos list
     redirect('/videos')
   }
 

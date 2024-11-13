@@ -1,12 +1,10 @@
-// app/videos/page.tsx
-
 import { PrismaClient } from '@prisma/client'
 import Link from 'next/link'
 
 const prisma = new PrismaClient()
 
 const VideosPage = async () => {
-  // Fetch all videos
+  //Fetch all videos
   const videos = await prisma.video.findMany()
 
   return (
@@ -23,10 +21,8 @@ const VideosPage = async () => {
             <Link href={`/videos/video/${video.id}`}>View Video</Link>
             <Link href={`/videos/video/edit/${video.id}`}>Edit</Link>
 
-            {/* Delete video */}
-            <form method="POST" action={`/videos/video/delete/${video.id}`}>
-              <button type="submit">Delete</button>
-            </form>
+            
+            
           </li>
         ))}
       </ul>
@@ -34,4 +30,10 @@ const VideosPage = async () => {
   )
 }
 
+/*
+old delete form method
+<form method="POST" action={`/videos/video/delete/${video.id}`}>
+<button type="submit">Delete</button>
+</form>
+*/
 export default VideosPage
