@@ -17,7 +17,7 @@ const Home = async () => {
           <li key={video.id}>
             <h2>{video.name}</h2>
             {/* Assuming `imageUrl` field exists in your database */}
-            <img src={`/images/${video.imageUrl}`} alt={video.name} />
+            <img src={`/images/${video.url}`} alt={video.name} />
           </li>
         ))}
       </ul>
