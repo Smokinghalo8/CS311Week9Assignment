@@ -1,12 +1,11 @@
-// app/page.tsx
-
+//"use client"
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-// Server Component (Direct async data fetching)
+//connect to external database
 const Home = async () => {
-  // Fetch videos from the database
+  //Fetch items from Databse
   const videos = await prisma.video.findMany();
 
   return (
@@ -16,7 +15,7 @@ const Home = async () => {
         {videos.map((video) => (
           <li key={video.id}>
             <h2>{video.name}</h2>
-            {/* Assuming `imageUrl` field exists in your database */}
+            {/*grab url of video and print it*/}
             <img src={`/images/${video.url}`} alt={video.name} />
           </li>
         ))}
