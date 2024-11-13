@@ -5,23 +5,23 @@ import { redirect } from 'next/navigation'
 
 const prisma = new PrismaClient()
 
-// The DeleteVideoPage will be an async function that handles the ID passed in the params.
+// Define the DeleteVideoPageProps interface, where params is just { id: string }.
 interface DeleteVideoPageProps {
   params: {
-    id: string
+    id: string;
   }
 }
 
-// This will handle deletion of the video based on the provided `id`.
+// Use async function to handle video deletion
 const DeleteVideoPage = async ({ params }: DeleteVideoPageProps) => {
-  const { id } = params
+  const { id } = params; // Get the id from params
   // Delete the video by its ID
   await prisma.video.delete({
-    where: { id: Number(id) },
-  })
+    where: { id: Number(id) }, // Convert the id to a number for the database
+  });
 
-  // After deletion, redirect to the videos list page
-  redirect('/videos')
+  // Redirect to the videos list after deletion
+  redirect('/videos');
 }
 
-export default DeleteVideoPage
+export default DeleteVideoPage;
