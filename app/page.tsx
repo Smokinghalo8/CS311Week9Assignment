@@ -1,4 +1,37 @@
-import Image from "next/image";
+// app/page.tsx
+
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
+// Server Component (Direct async data fetching)
+const Home = async () => {
+  // Fetch videos from the database
+  const videos = await prisma.video.findMany();
+
+  return (
+    <div>
+      <h1>Video List</h1>
+      <ul>
+        {videos.map((video) => (
+          <li key={video.id}>
+            <h2>{video.name}</h2>
+            {/* Assuming `imageUrl` field exists in your database */}
+            <img src={`/images/${video.imageUrl}`} alt={video.name} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default Home;
+
+
+
+
+
+/*import Image from "next/image";
 
 export default function Home() {
   return (
@@ -99,3 +132,4 @@ export default function Home() {
     </div>
   );
 }
+  */
