@@ -1,66 +1,3 @@
-// app/videos/video/edit/[slug]/page.tsx
-
-import { PrismaClient } from '@prisma/client'
-import { redirect } from 'next/navigation'
-
-const prisma = new PrismaClient()
-
-// You don't need to treat params as a Promise here
-interface EditVideoPageProps {
-  params: {
-    slug: string // 'slug' is the dynamic route parameter
-  }
-}
-
-// EditVideoPage is an async function since it needs to fetch data
-const EditVideoPage = async ({ params }: EditVideoPageProps) => {
-  // Fetch video based on the slug parameter from the route
-  const video = await prisma.video.findUnique({
-    where: { id: Number(params.slug) }, // Convert slug to number for the query
-  })
-
-  if (!video) {
-    // If video not found, redirect to the videos list page
-    redirect('/videos')
-  }
-
-  // Handle the form submission for updating the video
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault()
-    const formData = new FormData(event.target as HTMLFormElement)
-    const name = formData.get('name') as string
-    const url = formData.get('url') as string
-    const votes = parseInt(formData.get('votes') as string, 10)
-    const length = parseInt(formData.get('length') as string, 10)
-
-    // Update the video in the database
-    await prisma.video.update({
-      where: { id: video.id },
-      data: { name, url, votes, length },
-    })
-
-    // Redirect to the video detail page after update
-    redirect(`/videos/video/${video.id}`)
-  }
-
-  return (
-    <div>
-      <h1>Edit Video</h1>
-      <form onSubmit={handleSubmit}>
-        <input name="name" defaultValue={video.name} required />
-        <input name="url" defaultValue={video.url} required />
-        <input name="votes" type="number" defaultValue={video.votes} required />
-        <input name="length" type="number" defaultValue={video.length} required />
-        <button type="submit">Update Video</button>
-      </form>
-    </div>
-  )
-}
-
-export default EditVideoPage
-
-
-/*
 import { PrismaClient } from '@prisma/client'
 import { redirect } from 'next/navigation'
 
@@ -114,4 +51,3 @@ const EditVideoPage = async ({ params }: EditVideoPageProps) => {
 }
 
 export default EditVideoPage
-*/
